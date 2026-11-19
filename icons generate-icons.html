@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador de iconos · ESG 360</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#061410;color:#e9f6f0;margin:0;padding:2rem;text-align:center}
+  h1{font-size:1.3rem;margin:0 0 .4rem}
+  p{color:#9cc6b4;font-size:.9rem;max-width:640px;margin:.6rem auto}
+  .row{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+  .card{background:#0e2620;border:1px solid #1d4a3b;border-radius:14px;padding:1rem}
+  canvas{display:block;border-radius:12px;background:#0a1f18}
+  button{margin-top:.8rem;background:linear-gradient(135deg,#22c55e,#14b8a6);border:0;padding:.6rem 1.1rem;border-radius:10px;font-weight:700;cursor:pointer;color:#04140e;font-size:.9rem}
+  button:hover{filter:brightness(1.1)}
+  .note{font-size:.78rem;color:#9cc6b4;margin-top:1.5rem}
+  code{background:#12332a;padding:.1rem .35rem;border-radius:6px}
+</style>
+</head>
+<body>
+
+<h1>Generador de iconos · ESG 360</h1>
+<p>Dibuja el icono directamente en el canvas, sin cargar ningún archivo externo. Funciona incluso abriendo este HTML con doble clic.</p>
+
+<div class="row">
+  <div class="card">
+    <canvas id="c192" width="192" height="192"></canvas>
+    <button data-size="192">⬇ Descargar 192×192</button>
+  </div>
+  <div class="card">
+    <canvas id="c512" width="512" height="512" style="width:192px;height:192px"></canvas>
+    <button data-size="512">⬇ Descargar 512×512</button>
+  </div>
+</div>
+
+<p class="note">Guarda los dos archivos como <code>icon-192.png</code> e <code>icon-512.png</code> dentro de la carpeta <code>icons/</code>.</p>
+
+<script>
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function drawIcon(canvas) {
+  const S = canvas.width;
+  const u = S / 512;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, S, S);
+
+  // Fondo con degradado y esquinas redondeadas
+  const bg = ctx.createLinearGradient(0, 0, S, S);
+  bg.addColorStop(0, '#062e20');
+  bg.addColorStop(1, '#0d9488');
+  roundRect(ctx, 0, 0, S, S, 112 * u);
+  ctx.fillStyle = bg;
+  ctx.fill();
+
+  // Globo terráqueo
+  ctx.strokeStyle = 'rgba(167,243,208,0.32)';
+  ctx.lineWidth = 10 * u;
+  ctx.beginPath(); ctx.arc(248 * u, 248 * u, 158 * u, 0, Math.PI * 2); ctx.stroke();
+
+  ctx.strokeStyle = 'rgba(167,243,208,0.26)';
+  ctx.lineWidth = 8 * u;
+  ctx.beginPath(); ctx.ellipse(248 * u, 248 * u, 74 * u, 158 * u, 0, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(90 * u, 248 * u); ctx.lineTo(406 * u, 248 * u); ctx.stroke();
+
+  // Hoja
+  const leaf = ctx.createLinearGradient(0, 86 * u, 0, 412 * u);
+  leaf.addColorStop(0, '#4ade80');
+  leaf.addColorStop(1, '#16a34a');
+  ctx.fillStyle = leaf;
+  ctx.beginPath();
+  ctx.moveTo(248 * u, 86 * u);
+  ctx.bezierCurveTo(374 * u, 154 * u, 388 * u, 298 * u, 248 * u, 412 * u);
+  ctx.bezierCurveTo(108 * u, 298 * u, 122 * u, 154 * u, 248 * u, 86 * u);
+  ctx.closePath();
+  ctx.fill();
+
+  // Nervio central
+  ctx.strokeStyle = 'rgba(6,78,59,0.5)';
+  ctx.lineWidth = 11 * u;
+  ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(248 * u, 124 * u); ctx.lineTo(248 * u, 396 * u); ctx.stroke();
+
+  // Nervios laterales
+  ctx.strokeStyle = 'rgba(6,78,59,0.32)';
+  ctx.lineWidth = 8 * u;
+  const veins = [
+    [248, 186, 194, 150], [248, 246, 188, 206], [248, 306, 194, 270],
+    [248, 186, 302, 150], [248, 246, 308, 206], [248, 306, 302, 270]
+  ];
+  veins.forEach(v => {
+    ctx.beginPath();
+    ctx.moveTo(v[0] * u, v[1] * u);
+    ctx.lineTo(v[2] * u, v[3] * u);
+    ctx.stroke();
+  });
+
+  // Insignia de verificación
+  ctx.beginPath(); ctx.arc(396 * u, 396 * u, 74 * u, 0, Math.PI * 2);
+  ctx.fillStyle = '#0b3b2b'; ctx.fill();
+  ctx.strokeStyle = '#4ade80'; ctx.lineWidth = 11 * u; ctx.stroke();
+
+  ctx.strokeStyle = '#4ade80';
+  ctx.lineWidth = 19 * u;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(360 * u, 396 * u);
+  ctx.lineTo(386 * u, 422 * u);
+  ctx.lineTo(434 * u, 368 * u);
+  ctx.stroke();
+}
+
+// Vistas previas
+[192, 512].forEach(size => drawIcon(document.getElementById('c' + size)));
+
+// Descarga individual
+document.querySelectorAll('button[data-size]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const size = btn.dataset.size;
+    const canvas = document.getElementById('c' + size);
+    canvas.toBlob(blob => {
+      if (!blob) { alert('No se pudo generar el PNG. Prueba en Chrome o Edge.'); return; }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'icon-' + size + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+    }, 'image/png');
+  });
+});
+</script>
+</body>
+</html>
+

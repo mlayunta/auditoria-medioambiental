@@ -1,0 +1,178 @@
+/* ==========================================================================
+   ESG 360 · Sistema de diseño
+   Autor: Miguel Ángel Layunta López
+   ========================================================================== */
+:root{
+  --bg:#061410; --bg2:#0a1f18; --panel:#0e2620; --panel2:#12332a;
+  --line:#1d4a3b; --txt:#e9f6f0; --muted:#9cc6b4;
+  --brand:#22c55e; --brand2:#14b8a6; --accent:#facc15;
+  --ok:#22c55e; --warn:#f59e0b; --danger:#ef4444; --info:#38bdf8;
+  --r:14px; --sh:0 12px 34px rgba(0,0,0,.38);
+}
+[data-theme="light"]{
+  --bg:#f2f7f4; --bg2:#e7f0ea; --panel:#ffffff; --panel2:#f4faf6;
+  --line:#cfe3d8; --txt:#0d2b21; --muted:#4d6f61;
+  --sh:0 10px 26px rgba(13,43,33,.10);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:radial-gradient(1200px 700px at 12% -10%, rgba(34,197,94,.16), transparent 60%),
+             radial-gradient(900px 600px at 100% 0%, rgba(20,184,166,.14), transparent 55%),
+             var(--bg);
+  color:var(--txt); font:15px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  min-height:100vh; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0 0 .4rem; line-height:1.2; letter-spacing:-.01em}
+a{color:var(--brand2); text-decoration:none}
+a:hover{text-decoration:underline}
+code{background:var(--panel2); padding:.1rem .35rem; border-radius:6px; font-size:.85em}
+
+/* ---------- Topbar ---------- */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;
+  padding:.75rem 1.1rem; background:rgba(6,20,16,.82); backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line); position:sticky; top:0; z-index:40;
+}
+[data-theme="light"] .topbar{background:rgba(255,255,255,.85)}
+.brand{display:flex; align-items:center; gap:.7rem}
+.logo{width:46px; height:46px; border-radius:12px; box-shadow:var(--sh)}
+.brand-txt h1{font-size:1.12rem; margin:0}
+.brand-txt p{margin:0; font-size:.74rem; color:var(--muted)}
+.brand-txt p span{color:var(--brand)}
+.topbar-actions{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap}
+.badge{font-size:.72rem; padding:.28rem .6rem; border-radius:999px; border:1px solid var(--line); background:var(--panel); color:var(--muted); white-space:nowrap}
+.badge-ok{color:var(--ok); border-color:rgba(34,197,94,.45)}
+.badge-off{color:var(--warn); border-color:rgba(245,158,11,.5)}
+.badge-warn{color:var(--danger); border-color:rgba(239,68,68,.5)}
+.select,.input,.textarea{
+  background:var(--panel); color:var(--txt); border:1px solid var(--line);
+  border-radius:10px; padding:.45rem .6rem; font:inherit; font-size:.85rem; outline:none;
+}
+.input:focus,.textarea:focus,.select:focus{border-color:var(--brand2); box-shadow:0 0 0 3px rgba(20,184,166,.18)}
+.textarea{width:100%; min-height:80px; resize:vertical}
+.icon-btn{
+  background:var(--panel); border:1px solid var(--line); color:var(--txt);
+  width:38px; height:38px; border-radius:10px; cursor:pointer; font-size:1rem;
+}
+.icon-btn:hover{border-color:var(--brand2)}
+.btn{
+  border:1px solid var(--line); background:var(--panel); color:var(--txt);
+  padding:.5rem .85rem; border-radius:10px; cursor:pointer; font:inherit; font-size:.85rem;
+  display:inline-flex; align-items:center; gap:.4rem; transition:.15s;
+}
+.btn:hover{border-color:var(--brand2); transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand2)); border-color:transparent; color:#04140e; font-weight:700}
+.btn-danger{border-color:rgba(239,68,68,.5); color:#ffb4b4}
+.btn-sm{padding:.32rem .6rem; font-size:.78rem}
+.btn:disabled{opacity:.45; cursor:not-allowed; transform:none}
+
+/* ---------- Tabs ---------- */
+.tabs{
+  display:flex; gap:.35rem; overflow-x:auto; padding:.6rem 1.1rem;
+  border-bottom:1px solid var(--line); background:rgba(10,31,24,.5);
+  position:sticky; top:71px; z-index:30; scrollbar-width:thin;
+}
+[data-theme="light"] .tabs{background:rgba(255,255,255,.6)}
+.tab{
+  border:1px solid transparent; background:transparent; color:var(--muted);
+  padding:.45rem .85rem; border-radius:999px; cursor:pointer; font:inherit; font-size:.83rem; white-space:nowrap;
+}
+.tab:hover{color:var(--txt); background:var(--panel)}
+.tab.active{background:var(--panel2); color:var(--txt); border-color:var(--line); font-weight:600}
+
+/* ---------- Layout ---------- */
+.main{padding:1.1rem; max-width:1320px; margin:0 auto; min-height:60vh}
+.grid{display:grid; gap:1rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.card{
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line); border-radius:var(--r); padding:1rem; box-shadow:var(--sh);
+}
+.card h3{font-size:.95rem; display:flex; align-items:center; gap:.45rem}
+.card-sub{font-size:.78rem; color:var(--muted); margin:0 0 .7rem}
+.kpi{display:flex; flex-direction:column; gap:.15rem}
+.kpi .v{font-size:1.85rem; font-weight:800; letter-spacing:-.02em}
+.kpi .l{font-size:.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em}
+.kpi .d{font-size:.74rem; color:var(--muted)}
+.sec-title{margin:1.4rem 0 .6rem; font-size:1.05rem; display:flex; align-items:center; gap:.5rem}
+.sec-title::after{content:""; flex:1; height:1px; background:var(--line)}
+
+/* ---------- Tablas ---------- */
+.table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--panel)}
+table{width:100%; border-collapse:collapse; font-size:.83rem; min-width:560px}
+th,td{padding:.55rem .7rem; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--panel2); font-size:.74rem; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); position:sticky; top:0}
+tbody tr:hover{background:rgba(34,197,94,.06)}
+tbody tr:last-child td{border-bottom:none}
+
+/* ---------- Chips / estados ---------- */
+.chip{display:inline-block; font-size:.7rem; padding:.16rem .5rem; border-radius:999px; border:1px solid var(--line); background:var(--panel2); white-space:nowrap}
+.c-ok{color:var(--ok); border-color:rgba(34,197,94,.45)}
+.c-warn{color:var(--warn); border-color:rgba(245,158,11,.5)}
+.c-danger{color:var(--danger); border-color:rgba(239,68,68,.5)}
+.c-info{color:var(--info); border-color:rgba(56,189,248,.5)}
+.c-muted{color:var(--muted)}
+
+/* ---------- Checklist ---------- */
+.item{border:1px solid var(--line); border-radius:12px; padding:.7rem .8rem; margin-bottom:.55rem; background:var(--panel)}
+.item.cond{border-left:3px solid var(--brand2)}
+.item-head{display:flex; gap:.6rem; justify-content:space-between; align-items:flex-start}
+.item-q{font-size:.87rem; font-weight:600}
+.item-ref{font-size:.72rem; color:var(--muted); margin-top:.15rem}
+.item-ref a{color:var(--brand2)}
+.item-body{margin-top:.55rem; display:flex; gap:.5rem; flex-wrap:wrap; align-items:center}
+.seg{display:inline-flex; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.seg button{background:transparent; border:0; color:var(--muted); padding:.35rem .7rem; cursor:pointer; font:inherit; font-size:.8rem}
+.seg button.on-ok{background:rgba(34,197,94,.22); color:var(--ok); font-weight:700}
+.seg button.on-no{background:rgba(239,68,68,.22); color:var(--danger); font-weight:700}
+.seg button.on-na{background:rgba(148,163,184,.2); color:var(--muted); font-weight:700}
+.progress{height:8px; border-radius:999px; background:var(--panel2); overflow:hidden; border:1px solid var(--line)}
+.progress > i{display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand2))}
+
+/* ---------- Evidencias ---------- */
+.gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:.5rem}
+.ev{position:relative; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--panel2)}
+.ev img{width:100%; height:100px; object-fit:cover; display:block}
+.ev .meta{font-size:.66rem; padding:.3rem .4rem; color:var(--muted); word-break:break-word}
+.ev .del{position:absolute; top:4px; right:4px; background:rgba(0,0,0,.6); border:0; color:#fff; border-radius:6px; cursor:pointer; padding:.1rem .35rem}
+
+/* ---------- Modal / Toast ---------- */
+.modal{position:fixed; inset:0; background:rgba(2,10,7,.72); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:1rem; z-index:80}
+.modal-box{background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:1.1rem; max-width:640px; width:100%; max-height:88vh; overflow:auto; box-shadow:var(--sh)}
+.toast{position:fixed; bottom:1.1rem; left:50%; transform:translateX(-50%); background:var(--panel); border:1px solid var(--brand2); color:var(--txt); padding:.6rem 1rem; border-radius:999px; z-index:90; font-size:.85rem; box-shadow:var(--sh)}
+.foot{display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; padding:1.2rem; font-size:.75rem; color:var(--muted); border-top:1px solid var(--line); margin-top:2rem}
+.foot-sep{opacity:.4}
+.muted{color:var(--muted)}
+.small{font-size:.78rem}
+.right{text-align:right}
+.mt{margin-top:.8rem}
+.row{display:flex; gap:.5rem; flex-wrap:wrap; align-items:center}
+canvas{max-width:100%}
+.legend{display:flex; gap:.8rem; flex-wrap:wrap; font-size:.75rem; color:var(--muted); margin-top:.4rem}
+.dot{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:.3rem}
+
+/* ---------- Print ---------- */
+.print-area{display:none}
+@media print{
+  body{background:#fff; color:#111}
+  body > *:not(.print-area){display:none !important}
+  .print-area{display:block !important; padding:0}
+  .print-area h1{font-size:20pt}
+  .print-area table{font-size:9pt; min-width:0}
+  .print-area th,.print-area td{border:1px solid #999; padding:4px 6px}
+  .print-area .pcard{border:1px solid #ccc; border-radius:8px; padding:8px; margin-bottom:8px}
+}
+@media (max-width:640px){
+  .tabs{top:auto; position:static}
+  .brand-txt p{display:none}
+  .main{padding:.8rem}
+}
+.chart-box{position:relative;width:100%;height:220px}
+/* El atributo hidden debe ganar siempre a cualquier display */
+#modal[hidden],
+#toast[hidden] {
+  display: none !important;
+}
